@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Text Editor</title>
+  <style>
+    #canvasContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    #canvas {
+      border: 1px solid black;
+    }
+    .controls {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="canvasContainer">
+    <canvas id="canvas" width="800" height="500"></canvas>
+    <div class="controls">
+      <input type="text" id="textInput" placeholder="Enter text">
+      <button onclick="addText()">Add Text</button>
+      <select id="fontSelect" onchange="changeFont()">
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Times New Roman">Times New Roman</option>
+      </select>
+      <input type="number" id="fontSizeInput" value="20" onchange="changeFontSize()"> Size
+      <select id="fontStyle" onchange="changeFontStyle()">
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="bold">Bold</option>
+      </select>
+      <button onclick="undo()">Undo</button>
+      <button onclick="redo()">Redo</button>
+    </div>
+  </div>
+
+  <script src="canvasEditor.js"></script>
+</body>
+</html>
