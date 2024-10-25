@@ -13,9 +13,12 @@
     }
     #canvas {
       border: 1px solid black;
+      cursor: pointer;
     }
     .controls {
       margin: 10px;
+      display: flex;
+      gap: 5px;
     }
   </style>
 </head>
@@ -30,7 +33,7 @@
         <option value="Courier New">Courier New</option>
         <option value="Times New Roman">Times New Roman</option>
       </select>
-      <input type="number" id="fontSizeInput" value="20" onchange="changeFontSize()"> Size
+      <input type="number" id="fontSizeInput" value="20" min="10" max="100" onchange="changeFontSize()"> px
       <select id="fontStyle" onchange="changeFontStyle()">
         <option value="normal">Normal</option>
         <option value="italic">Italic</option>

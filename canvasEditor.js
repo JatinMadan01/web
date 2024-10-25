@@ -13,6 +13,9 @@ function addText() {
   const fontSize = parseInt(document.getElementById('fontSizeInput').value);
   const fontFamily = document.getElementById('fontSelect').value;
   const fontStyle = document.getElementById('fontStyle').value;
+  
+  if (!textInput) return; // Do nothing if input is empty
+
   const text = {
     text: textInput,
     x: canvas.width / 2,
@@ -21,6 +24,7 @@ function addText() {
     fontFamily: fontFamily,
     fontStyle: fontStyle,
   };
+
   texts.push(text);
   saveState();
   drawCanvas();
@@ -44,7 +48,7 @@ function saveState() {
 // Undo function
 function undo() {
   if (undoStack.length > 0) {
-    redoStack.push(texts);
+    redoStack.push(JSON.parse(JSON.stringify(texts)));
     texts = undoStack.pop();
     drawCanvas();
   }
@@ -53,7 +57,7 @@ function undo() {
 // Redo function
 function redo() {
   if (redoStack.length > 0) {
-    undoStack.push(texts);
+    undoStack.push(JSON.parse(JSON.stringify(texts)));
     texts = redoStack.pop();
     drawCanvas();
   }
@@ -63,8 +67,9 @@ function redo() {
 canvas.addEventListener('mousedown', (e) => {
   const mouseX = e.offsetX;
   const mouseY = e.offsetY;
-  selectedText = texts.find((text) =>
-    ctx.isPointInPath(new Path2D(`M${text.x},${text.y}`), mouseX, mouseY)
+  selectedText = texts.find((text) => 
+    mouseX > text.x && mouseX < text.x + ctx.measureText(text.text).width &&
+    mouseY < text.y && mouseY > text.y - text.fontSize
   );
   if (selectedText) {
     isDragging = true;
